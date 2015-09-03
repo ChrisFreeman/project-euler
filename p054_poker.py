@@ -53,6 +53,7 @@ Task: How many hands does Player 1 win?
 import sys, logging
 from collections import Counter
 
+
 # Configure logging
 # set level to logging.ERROR, logging.INFO, or logging.DEBUG
 logging.basicConfig(stream=sys.stderr, level=logging.INFO)
@@ -127,7 +128,7 @@ def is_straight(pips):
 
     Compare card pip values are in decending order. Hand is presorted.
     """
-    return (pips[0] == pips[1] + 1 == pips[2] + 2 == 
+    return (pips[0] == pips[1] + 1 == pips[2] + 2 ==
             pips[3] + 3 == pips[4] + 4)
 
 def is_flush(suits):
@@ -145,19 +146,18 @@ def count_pips(pips):
     # sort dict by key, value (pip, count) pairs by count, then by pip,
     # reverse for decending order: [(10, 2), (2, 2), (8, 1)]
     return sorted(pip_count.items(), key=lambda x: (x[1], x[0]), reverse=True)
-    
+
 def eval_hand(pips, suits):
     '''Evaluate poker hand pips and suits values.
     Return a list of hand rank value followed by ordered relevant card
     values and ordered remainder cards. Two eval_hands lists can be
-    directly compared using > for winner or == for ties. 
+    directly compared using > for winner or == for ties.
 
     Example list returned for evaluated hand:
       Two Pair Js and 7s with A: [3, 11, 7, 14, 0, 0]
       Full House 8s over 3: [7, 8, 3, 0, 0, 0]
       Straight Flush: [9, 7, 6, 5, 4, 3]
       Royal Flush: [10, 14, 13, 12, 11, 10]
-      
     '''
     # check for straight, flush, straight flush, royal flush results
     straight = is_straight(pips)
@@ -185,7 +185,7 @@ def eval_hand(pips, suits):
         reduced_pips = [pip_count[0] for pip_count in counted_pips]
         # pad reduced pips to five values for readability
         reduced_pips.extend([0] * (5 - len(reduced_pips)))
-        
+
         # check highest pip count
         if highest_pip_count == 1:
             # High Card if highest pip count is 1
@@ -232,7 +232,7 @@ def main():
         elif eval1 == eval2:
             logging.error("Error: Hands shouldn't tie")
             hands_tied += 1
-            
+
     logging.info("Player 1 won {0} hands, tied {1} times".format(hands_won, hands_tied))
 
 if __name__ == '__main__':
